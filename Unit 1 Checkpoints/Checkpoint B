@@ -2,50 +2,80 @@
 // Sept 4th, 2025
 // Programming 12 - Unit 1 Review
 
-
+//int + float:
 float x, y;
-float AngleSun;
+float moonX, moonY;
+float AngleSun, AngleMoon;
 boolean day;
+
+float backgroundColourR, backgroundColourG, backgroundColourB;
+
 
 void setup() {
   size(1200, 800);
-  
+
   day = true;
-  
+
   AngleSun = 0;
   println(day);
-}
+} // end of function voidSetup: -------------------------------------------------------------------------------------------------------------
 
 
 void draw() {
-  background(#83E3F5);
+  // background color
+  backgroundColourR = 131 - y / height * 120;
+  backgroundColourG = 227 - y / height * 200;
+  backgroundColourB = 245 - y / height * 170;
+  
+  background(backgroundColourR, backgroundColourG, backgroundColourB);
+
+  //sun + moon (sun & moon pokemon)
   sun();
+  moon();
+
+  //objects
   grass();
   Sealevel();
   house();
-}
+} // end of function voidDraw: -------------------------------------------------------------------------------------------------------------
 
 
 
-// Sun
 void sun() {
   stroke(#F5EF83);
   fill(#F5EF83);
- 
-  
+
   x = cos(AngleSun) * 350 + width / 2;
   y = sin(AngleSun) * 350 + height / 2;
-  
-  circle(x, y, 200);
-  
-  AngleSun += 0.01;
-  
-  if (x = height -) {
-    day = !day;
-  }
-  
-}
 
+  if (y < height / 2 + 200) {
+    circle(x, y, 200);
+    day = true;
+  } else {
+    day = false;
+  }
+
+  AngleSun += 0.01;
+} // end of function Sun: -------------------------------------------------------------------------------------------------------------
+
+
+
+void moon() {
+  // Moon
+  moonX = cos(AngleSun + PI) * 350 + width / 2;
+  moonY = sin(AngleSun + PI) * 350 + height / 2;
+
+  //positions
+  if (moonY < height / 2 + 200) {
+    stroke(#F5EF83);
+    fill(#F5EF83);
+    circle(moonX, moonY, 200);
+
+    fill(backgroundColourR, backgroundColourG, backgroundColourB);
+    noStroke();
+    circle(moonX - 50, moonY, 150);
+  }
+} // end of function Moon: -------------------------------------------------------------------------------------------------------------
 
 
 
@@ -54,8 +84,7 @@ void grass() {
   noStroke();
   fill(#BFF583);
   rect(0, height - 300, width, height - 300);
-}
-
+} // end of function Grass: -------------------------------------------------------------------------------------------------------------
 
 
 
@@ -63,7 +92,9 @@ void Sealevel() {
   stroke(0);
   strokeWeight(1.4);
   line(0, height - 300, width, height - 300);
-}
+} // end of function Sealevel: -------------------------------------------------------------------------------------------------------------
+
+
 
 // House
 void house() {
@@ -71,14 +102,18 @@ void house() {
   door();
   windows();
   roof();
-}
+} // end of function House: -------------------------------------------------------------------------------------------------------------
+
+
 
 // House body
 void houseBody() {
   noStroke();
   fill(#F5DA79);
   rect(width - 500, height - 420, 230, 120);
-}
+} // end of function HouseBody: -------------------------------------------------------------------------------------------------------------
+
+
 
 // Door
 void door() {
@@ -98,7 +133,9 @@ void door() {
   //door roof
   fill(#E86262);
   triangle(width - 435, height - 360, width - 385, height - 390, width - 335, height - 360);
-}
+} // end of function Door: -------------------------------------------------------------------------------------------------------------
+
+
 
 // Windows
 void windows() {
@@ -119,10 +156,12 @@ void windows() {
   strokeWeight(2);
   line(width - 310, height - 375, width - 310, height - 335);
   line(width - 290, height - 355, width - 330, height - 355);
-}
+} // end of function Windows: -------------------------------------------------------------------------------------------------------------
+
+
 
 // Roof
 void roof() {
   fill(#E86262);
   quad(width - 530, height - 420, width - 490, height - 500, width - 286, height - 500, width - 240, height - 420);
-}
+} // end of function Roof: -------------------------------------------------------------------------------------------------------------
