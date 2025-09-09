@@ -1,0 +1,220 @@
+// Lawrence Mo
+// Sept 4th, 2025
+// Programming 12 - Unit 1 Review
+
+//int + float:
+float x, y;
+float moonX, moonY;
+float AngleSun, AngleMoon;
+boolean day;
+
+//pyramid colour:
+int pyramidX, pyramidY;
+
+float backgroundColourR, backgroundColourG, backgroundColourB;
+
+// colour palette:
+color lightBrown = #E5C07B;
+color darkBrown  = #C9A44F;
+
+//position of the pyramid:
+float pyramid1X, pyramid1Scale;
+float pyramid2X, pyramid2Scale;
+
+
+
+void setup() {
+  size(1200, 800);
+  // randomize positions
+  pyramid1X = random(100, width - 200);
+  pyramid1Scale = random(0.6, 1.4);
+
+  pyramid2X = random(100, width - 200);
+  pyramid2Scale = random(0.6, 1.4);
+
+
+
+  day = true;
+
+  AngleSun = 0;
+  println(day);
+} // end of function voidSetup: -------------------------------------------------------------------------------------------------------------
+
+
+void draw() {
+  // background color
+  backgroundColourR = 131 - y / height * 120;
+  backgroundColourG = 227 - y / height * 200;
+  backgroundColourB = 245 - y / height * 170;
+
+  background(backgroundColourR, backgroundColourG, backgroundColourB);
+
+  //sun + moon (sun & moon pokemon)
+  sun();
+  moon();
+
+  //objects
+  grass();
+
+  //first pyramid
+  pushMatrix();
+  translate(pyramid1X, height - 300);
+  scale(pyramid1Scale);
+  pyramid();
+  popMatrix();
+
+  //second pyramid
+  pushMatrix();
+  translate(pyramid2X, height - 300);
+  scale(pyramid2Scale);
+  pyramid();
+  popMatrix();
+
+  Sealevel();
+  house();
+} // end of function voidDraw: -------------------------------------------------------------------------------------------------------------
+
+
+
+//pyramid
+void pyramid() {
+  int baseTriangleWidth = 300;
+  int triangleHeight = 200;
+
+  noStroke();
+
+  // lighter side
+  fill(lightBrown);
+  triangle(0, - triangleHeight, - baseTriangleWidth / 2, 0, baseTriangleWidth / 2, 0);
+
+  // darker side
+  fill(darkBrown);
+  triangle(0, - triangleHeight, 0, 0, baseTriangleWidth / 2, 0);
+  
+} // end of function pyramid: -------------------------------------------------------------------------------------------------------
+
+
+void sun() {
+  stroke(#F5EF83);
+  fill(#F5EF83);
+
+  x = cos(AngleSun) * 350 + width / 2;
+  y = sin(AngleSun) * 350 + height / 2;
+
+  if (y < height / 2 + 200) {
+    circle(x, y, 200);
+    day = true;
+  } else {
+    day = false;
+  }
+
+  AngleSun += 0.01;
+} // end of function Sun: -------------------------------------------------------------------------------------------------------------
+
+
+
+void moon() {
+  // Moon
+  moonX = cos(AngleSun + PI) * 350 + width / 2;
+  moonY = sin(AngleSun + PI) * 350 + height / 2;
+
+  //positions
+  if (moonY < height / 2 + 200) {
+    stroke(#F5EF83);
+    fill(#F5EF83);
+    circle(moonX, moonY, 200);
+
+    fill(backgroundColourR, backgroundColourG, backgroundColourB);
+    noStroke();
+    circle(moonX - 50, moonY, 150);
+  }
+} // end of function Moon: -------------------------------------------------------------------------------------------------------------
+
+
+
+// Grass
+void grass() {
+  noStroke();
+  fill(#BFF583);
+  rect(0, height - 300, width, height - 300);
+} // end of function Grass: -------------------------------------------------------------------------------------------------------------
+
+
+
+void Sealevel() {
+  stroke(0);
+  strokeWeight(1.4);
+  line(0, height - 300, width, height - 300);
+} // end of function Sealevel: -------------------------------------------------------------------------------------------------------------
+
+
+
+// House
+void house() {
+  houseBody();
+  door();
+  windows();
+  roof();
+} // end of function House: -------------------------------------------------------------------------------------------------------------
+
+
+
+// House body
+void houseBody() {
+  noStroke();
+  fill(#F5DA79);
+  rect(width - 500, height - 420, 230, 120);
+} // end of function HouseBody: -------------------------------------------------------------------------------------------------------------
+
+
+
+// Door
+void door() {
+  //outer door
+  fill(255);
+  rect(width - 425, height - 360, 80, 60);
+
+  //inner doors
+  fill(#88DAE8);
+  rect(width - 420, height - 355, 30, 51);
+  rect(width - 380, height - 355, 30, 51);
+
+  fill(0);
+  stroke(0);
+  line(width - 385, height - 360, width - 385, height - 300);
+
+  //door roof
+  fill(#E86262);
+  triangle(width - 435, height - 360, width - 385, height - 390, width - 335, height - 360);
+} // end of function Door: -------------------------------------------------------------------------------------------------------------
+
+
+
+// Windows
+void windows() {
+  // inner windows
+  noStroke();
+  fill(255);
+  square(width - 480, height - 375, 40);
+  square(width - 330, height - 375, 40);
+
+  // window frames
+  stroke(0);
+  strokeWeight(2);
+  line(width - 460, height - 375, width - 460, height - 335);
+  line(width - 440, height - 355, width - 480, height - 355);
+
+  // window frames
+  stroke(0);
+  strokeWeight(2);
+  line(width - 310, height - 375, width - 310, height - 335);
+  line(width - 290, height - 355, width - 330, height - 355);
+} // end of function Windows: -------------------------------------------------------------------------------------------------------------
+
+
+
+// Roof
+void roof() {
+  fill(#E86262);
+  quad(width - 530, height - 420, width - 490, height - 500, width - 286, height - 500, width - 240, height - 420);
+} // end of function Roof: -------------------------------------------------------------------------------------------------------------
