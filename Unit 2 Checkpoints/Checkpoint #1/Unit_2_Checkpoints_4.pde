@@ -1,5 +1,6 @@
 Mover[] myMovers;
-int n = 50;
+int n = 10;
+
 
 void setup() {
   size(600, 600);
