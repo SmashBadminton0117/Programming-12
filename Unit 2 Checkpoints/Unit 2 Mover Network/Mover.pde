@@ -7,15 +7,17 @@ class Mover {
   //constructor
   Mover() {
     coords = new PVector (random(0, width), random(0, height));
-    vel = new PVector (random(-1, 1), random(-1, 1));
+    vel = new PVector (3, 0));
 
-    diameterOfCircle = 100;
+    vel.rotate( radian(random(0, 360) ))
+
   }
 
   void show() {
     noStroke();
     fill(255, 50);
     circle(coords.x, coords.y, diameterOfCircle);
+    diameterOfCircle = 100;
   }
 
   void act() {
