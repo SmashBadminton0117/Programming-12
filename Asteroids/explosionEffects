@@ -1,0 +1,41 @@
+class explosionEffects extends GameObjects {
+  //instance variables
+  int numberOfExplosion;
+
+  //constructor
+  explosionEffects(float x, float y, int asteroidSize) {
+    super(x, y, 0, 0);
+
+    timer = 0;
+    showAliveTime = asteroidSize * 15;
+
+    numberOfExplosion = 5;
+    
+    rotationPI = random(TWO_PI);
+
+    vel = new PVector(1, 0);
+    vel.setMag(random(2, 5));
+    vel.rotate(rotationPI);
+
+    int i = 0;
+    while ( i < numberOfExplosion ) {
+      objects.add(new shapes(loc.x, loc.y, showAliveTime));
+      i++;
+    }
+  }
+
+
+  //behaviour function
+  void show() {
+  }
+
+  void act() {
+    loc.add(vel);
+    timer++;
+    
+    if (timer >= showAliveTime) {
+      lives = 0;
+      
+    }
+  }
+}
