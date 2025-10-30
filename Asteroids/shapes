@@ -1,0 +1,49 @@
+class shapes extends GameObjects {
+  //instance variable
+  int shapeType;
+  
+  //constructor
+  shapes(float x, float y, int t) {
+    super(x, y, 0, 0);
+    
+    lives = 1;
+    timer = 0;
+    showAliveTime = t;
+    
+    shapeType = int(random(3));
+    
+    vel = new PVector(1, 0);
+    vel.setMag(random(1, 3));
+    vel.rotate(random(TWO_PI));
+    
+  }
+  
+  //behaviour functions
+  void show() {
+    noFill();
+    stroke(255, 150, 0);
+    strokeWeight(1);
+    
+    if (shapeType == 0) {
+      circle(loc.x, loc.y, 3);
+      
+    } else if (shapeType == 1) {
+      rectMode(CENTER);
+      square(loc.x, loc.y, 3);
+      
+    } else if (shapeType == 2) {
+      triangle(loc.x, loc.y - 2, loc.x - 2, loc.y + 2, loc.x + 2, loc.y + 2);
+      
+    }
+  }
+  
+  void act() {
+    loc.add(vel);
+    timer++;
+    
+    if (timer >= showAliveTime + 20) {
+      lives = 0;
+      
+    }
+  }
+}
