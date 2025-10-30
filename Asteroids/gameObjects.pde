@@ -2,27 +2,50 @@ class GameObjects {
   //instance variables
   PVector loc;
   PVector vel;
+  
+  //number of lives
   int lives;
+  
+  //diameters
   float d;
+  
+  //timer
+  int timer;
+  
+  //showing the Alive time
+  int showAliveTime;
+  
+  //rotating the circles
+  float rotationPI;
+  
+  //determines if the bullet shoots the asteroid && colour
+  boolean alienBullet;
 
   //constructors
   GameObjects(float lx, float ly, float vx, float vy) {
     loc = new PVector (lx, ly);
     vel = new PVector (vx, vy);
-    lives = 1;
+    lives = 3;
   }
 
   GameObjects(PVector l, PVector v) {
     loc = l;
     vel = v;
-    lives = 1;
+    lives = 3;
   }
 
   GameObjects(PVector l, PVector v, int lv) {
     loc = l;
     vel = v;
-    lives = 1;
+    lives = lv;
   }
+
+  GameObjects(float x, float y, int t) {
+    loc = new PVector(x, y);
+    vel = new PVector(0, 0);
+    timer = t;
+  }
+
 
   //behaviour functions
   void act() {
