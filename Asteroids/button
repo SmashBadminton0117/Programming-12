@@ -1,0 +1,76 @@
+class Button {
+  //instance variable
+  int x, y, w, h;
+  boolean clicked;
+  color hovered, normal;
+  String text;
+
+  boolean mouseReleased;
+  boolean wasPressed;
+
+  //constructor
+  Button(String t, int _x, int _y, int _w, int _h, color highlighted, color norm) {
+
+    //text
+    text = t;
+
+    //position of button
+    x = _x;
+    y = _y;
+    w = _w;
+    h = _h;
+
+    //color of button
+    normal = norm;
+    hovered = highlighted;
+
+    //clicked or not
+    clicked = false;
+  }
+  
+  //clicking on mouse
+  boolean touchingMouse() {
+    return mouseX > x - w / 2 && mouseX < x + w / 2 && mouseY > y - h / 2 && mouseY < y + h / 2;
+  }
+
+  //behaviour function
+  void show() {
+    hoveringButton();
+    drawRect();
+    drawLabel();
+    checkForClicks();
+  }
+  
+  void drawLabel() {
+    fill(white);
+    textSize(50);
+    textAlign(CENTER, CENTER);
+    text(text, x, y);
+  }
+  
+  void drawRect() {
+    noFill();
+    strokeWeight(2);
+    rectMode(CENTER);
+    rect(x, y, w, h);
+    
+  }
+  
+  void hoveringButton() {
+    rectMode(CENTER);
+    textAlign(CENTER, CENTER);
+    if (touchingMouse()) {
+      stroke(normal);
+    } else if (!touchingMouse()) {
+      stroke(hovered);
+      
+    }
+  }
+  
+  void checkForClicks() {
+    
+  }
+
+  void act() {
+  }
+}
