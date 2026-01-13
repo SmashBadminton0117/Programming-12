@@ -4,6 +4,8 @@ import fisica.*;
 //December 9th, 2025
 //Fisica Terrains
 
+
+
 //color palette
 color black     = #000000;
 color red       = #FF0000;
@@ -17,12 +19,13 @@ color yellow    = #e0e647;
 color grey      = #858582;
 color lavaColor = #ff0022;
 color thwomp    = #b021b0;
+color hammerBro = #4263eb;
 
 //gridsize
-int gridSize = 42;
+int gridSize = 46;
 
 //player position
-int x = 480;
+int x = (gridSize * 11);
 int y = 0;
 
 //check velocity
@@ -90,6 +93,9 @@ PImage[] goomba;
 PImage[] Thwomp;
 PImage[] HammerBro;
 
+//weapon
+PImage Hammer;
+
 //lava
 PImage[] lava;
 
@@ -127,13 +133,12 @@ void createWorld() {
 
 void draw() {
   background(255);
-  
+
   //drawing the world
   drawWorld();
-  
+
   //displaying the act functions for all class
   actWorld();
-
 }
 
 void drawWorld() {
@@ -149,19 +154,18 @@ void drawWorld() {
 void actWorld() {
   //player movements
   player.act();
-  
+
   //terrain behaviours
   for (int i = 0; i < terrain.size(); i++) {
     FGameObject t = terrain.get(i);
     t.act();
   }
-  
+
   //enemies behaviours
   for (int i = 0; i < enemies.size(); i++) {
     FGameObject e = enemies.get(i);
     e.act();
   }
-  
 }
 
 void loadPlayer() {
