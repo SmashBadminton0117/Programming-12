@@ -2,6 +2,22 @@ class FGameObject extends FBox {
   //instance variable
   final int L = -1;
   final int R = 1;
+  
+  //directions
+  int direction = R;
+  
+  //move
+  int speed;
+  
+  //only counts when it hits the wall
+  int hitWall;
+  
+  //animation
+  int frame;
+  
+  //timer
+  int timer;
+  int cooldown;
 
   //constructor
   FGameObject() {
@@ -9,6 +25,10 @@ class FGameObject extends FBox {
   }
   
   FGameObject(int valuex, int valuey) {
+    super(valuex, valuey);
+  }
+  
+  FGameObject(float valuex, float valuey) {
     super(valuex, valuey);
   }
 
