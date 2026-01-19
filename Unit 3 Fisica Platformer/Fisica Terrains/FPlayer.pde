@@ -5,6 +5,16 @@ class FPlayer extends FGameObject {
   //directions
   int direction;
 
+  //check player status
+  boolean isGrounded;
+
+  //jumping motion
+  final int maxJump = 2;
+  int jumpRemaining;
+  boolean jumpKeyPressed;
+
+  int currentJump;
+
   //constructor
   FPlayer(float positionX, float positionY, color c) {
     super();
@@ -24,6 +34,11 @@ class FPlayer extends FGameObject {
 
     //direction character is facing
     direction = R;
+
+    //jumps
+    jumpRemaining = maxJump;
+    jumpKeyPressed = false;
+    isGrounded = false;
   }
 
   //behaviour functions
@@ -31,19 +46,30 @@ class FPlayer extends FGameObject {
     //player movement
     playerMovement();
 
-    //collision spike
-    if (isTouching("spike")) {
-      
-      setPosition(x, y);
-    }
-
     //animation
     animate();
+
+    //borders
+    blockBorders();
+  }
+
+  void blockBorders() {
+    //left side of player
+    if (getX() < gridSize / 2) {
+      setVelocity(0, getVelocityY());
+      setPosition(gridSize / 2, getY());
+    }
+
+    //right side of player
+    if (getX() > width + gridSize * 6 + 5) {
+      setVelocity(0, getVelocityY());
+      setPosition(width + gridSize * 6 + 5, getY());
+    }
   }
 
   void animate() {
     if (frame >= action.length) frame = 0;
-    if (frameCount % 12 == 0) {
+    if (frameCount % 7 == 0) {
       if (direction == R) attachImage(action[frame]);
       if (direction == L) attachImage(reverseImage(action[frame]));
       frame++;
@@ -67,8 +93,8 @@ class FPlayer extends FGameObject {
     float jumpForce;
 
     //instantiating jumping force
-    speed = 150;
-    jumpForce = 450;
+    speed = 100;
+    jumpForce = 320;
 
     //instantiating
     vx = getVelocityX();
@@ -77,28 +103,71 @@ class FPlayer extends FGameObject {
     //set original velocity
     velocityX = getVelocityX();
 
-    if (abs(vy) <= 0) {
+    //initialize contact
+    ArrayList<FContact> contacts = getContacts();
+    isGrounded = contacts.size() > 0 && !isTouching("tree") && !isTouching("leaf");
+
+    //reset jumps
+    if (isGrounded && vy >= -1) {
+      jumpRemaining = maxJump;
+      currentJump = 0;
+    }
+
+    //jump
+    if (jumpKey && !jumpKeyPressed) {
+
+      //no more jumping
+      if (jumpRemaining > 0) {
+        setVelocity(getVelocityX(), -jumpForce);
+        jumpRemaining--;
+        currentJump++;
+        frame = 0;
+      }
+    }
+
+    //check if jumped
+    jumpKeyPressed = jumpKey;
+
+    //check animation
+    if (abs(vy) <= 1 && isGrounded) {
       action = idle;
+    }
+
+    //when jumping
+    if (vy < -50) {
+      //check which jump
+      if (currentJump == 1) {
+        action = jumpingUp;
+      }
+
+      //double jump
+      else if (currentJump == 2) {
+        action = doubleJump;
+      }
+    }
+
+    //when it is falling
+    else if (vy > 50) {
+      action = jumpingDown;
     }
 
     if (left) {
       velocityX = -speed;
-      action = run;
+      if (abs(vy) < 50) {
+        action = run;
+      }
       direction = L;
     }
+
     if (right) {
       velocityX = speed;
-      action = run;
+      if (abs(vy) < 50) {
+        action = run;
+      }
       direction = R;
     }
 
-    if (abs(vy) > 0.1)
-      action = jump;
-
-    // horizontal movement
+    //setting player velocity
     setVelocity(velocityX, getVelocityY());
-
-    ArrayList<FContact> contacts = getContacts();
-    if (jumpKey && contacts.size() > 0 && !isTouching("tree") && !isTouching("leaf")) setVelocity(getVelocityX(), -jumpForce);
   }
 }

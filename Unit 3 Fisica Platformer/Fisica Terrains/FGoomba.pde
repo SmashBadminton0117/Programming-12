@@ -1,11 +1,5 @@
 class FGoomba extends FGameObject {
   //instance variables
-  int direction;
-  int speed;
-  int frame;
-
-  //only counts when it hits the wall
-  int hitWall;
 
   //constructor
   FGoomba(float x, float y) {
@@ -13,7 +7,6 @@ class FGoomba extends FGameObject {
     super();
 
     //instantiate values
-    direction = R;
     speed = 50;
     frame = 0;
 
@@ -57,7 +50,7 @@ class FGoomba extends FGameObject {
       if (player.getY() < getY() - gridSize / 2) {
         world.remove(this);
         enemies.remove(this);
-        
+
         //boost
         player.setVelocity(player.getVelocityX(), - 300);
       } else {

@@ -9,23 +9,22 @@ class FThwomp extends FGameObject {
   final int reseting   = 2;
 
   //detection rect
-  float detectionWidth;
-  float detectionHeight;
+  float detectionWidth, detectionHeight;
 
   //detection
   float detectionX, detectionY;
 
   //stationary position
-  float x1, y1;
+  float originX, originY;
 
   //animation
   int frame;
-
-  //timer
-  int timer;
-
+  
   //check landing
   boolean checkIfLanded;
+  
+  //resetting
+  float resetSpeed;
 
 
   //constructor
@@ -43,11 +42,11 @@ class FThwomp extends FGameObject {
 
     //detection rect
     detectionWidth = gridSize * 2;
-    detectionHeight = gridSize * 8;
+    detectionHeight = gridSize * 16;
 
     //stationary position
-    x1 = x;
-    y1 = y;
+    originX = x;
+    originY = y;
 
     //animation
     frame = 0;
@@ -55,23 +54,27 @@ class FThwomp extends FGameObject {
 
     //landed
     checkIfLanded = false;
+    
+    //resetting the thwomp
+    resetSpeed = 2;
 
     //collision
     detectionX = getX();
-    detectionY = getY() + gridSize;
+    detectionY = getY() + detectionHeight / 2;
   }
 
 
   //behaviour functions
   void act() {
-    collision();
+    checkPlayer();
     modeFramework();
+    checkCollisionPlayer();
     animation();
   }
 
 
   //collision
-  void collision() {
+  void checkPlayer() {
     if (thwompMode == stationary) {
       if (player.getX() > detectionX - detectionWidth / 2 && player.getX() < detectionX + detectionWidth / 2 && player.getY() > detectionY - detectionHeight / 2 && player.getY() < detectionY + detectionHeight / 2) {
 
@@ -79,9 +82,25 @@ class FThwomp extends FGameObject {
         thwompMode = falling;
         setStatic(false);
         setSensor(false);
-        setVelocity(0, 800);
+        setVelocity(0, 5);
+
+        //timer
         timer = 0;
+
+        //checking
         checkIfLanded = false;
+      }
+    }
+  }
+
+  void checkCollisionPlayer() {
+    //collision with player
+    if (isTouching("player")) {
+      if (player.getY() < getY() - gridSize) {
+        player.setVelocity(player.getVelocityX(), 0);
+      } else {
+        //setting player pos back to spawn
+        player.setPosition(x, y);
       }
     }
   }
@@ -89,7 +108,7 @@ class FThwomp extends FGameObject {
   //different modes
   void modeFramework() {
     if (thwompMode == falling) {
-      
+
       //collision detected
       if ((isTouching("dirt") || isTouching("wall") || isTouching("ice")) && !checkIfLanded) {
 
@@ -116,40 +135,35 @@ class FThwomp extends FGameObject {
           timer = 0;
         }
       }
-    } 
-    
-    else if (thwompMode == reseting) {
+    } else if (thwompMode == reseting) {
       
-      //setting it back to the position
-      setPosition(x1, y1);
+       //get position of the original position
+      if (getY() > originY) {
+        setPosition(originX, getY() - resetSpeed);
+      } 
       
-      //values
-      setVelocity(0, 0);
-      setStatic(true);
-      setSensor(false);
-      
-      //setting the mode back to stationary
-      thwompMode = stationary;
-      
-      //reseting timer
-      timer = 0;
-      
-      //reseting boolean
-      checkIfLanded = false;
+      //when reaches the place set stationary
+      else {
+        setPosition(originX, originY);
+        thwompMode = stationary;
+        timer = 0;
+        checkIfLanded = false;
+      }
     }
   }
 
 
-  //attach image
-  void animation() {
-    //checking current image
-    if (thwompMode == stationary) {
-      frame = 0;
-    } else if (thwompMode == falling) {
-      frame = 1;
+
+    //attach image
+    void animation() {
+      //checking current image
+      if (thwompMode == stationary) {
+        frame = 0;
+      } else if (thwompMode == falling) {
+        frame = 1;
+      }
+
+      //attaching the image
+      attachImage(Thwomp[frame]);
     }
-    
-    //attaching the image
-    attachImage(Thwomp[frame]);
   }
-}

@@ -8,9 +8,10 @@ class FHammerBro extends FGameObject {
 
   //player coordinates
   boolean playerRange;
-  
+
   //parameters
   int hammerBroSpeed;
+  float distance;
 
   //constructor
   FHammerBro(float x, float y) {
@@ -41,7 +42,6 @@ class FHammerBro extends FGameObject {
     isThrowingHammer = false;
     timer = 0;
     cooldown = 180;
-
   }
 
   //behaviour functions
@@ -79,7 +79,9 @@ class FHammerBro extends FGameObject {
       //variable
       float distanceX = player.getX() - getX();
       float distanceY = player.getY() - getY();
-      float distance = sqrt(distanceX * distanceX + distanceY * distanceY);
+      
+      //initlize
+      distance = sqrt(distanceX * distanceX + distanceY * distanceY);
 
       timer++;
       if (timer >= cooldown) {

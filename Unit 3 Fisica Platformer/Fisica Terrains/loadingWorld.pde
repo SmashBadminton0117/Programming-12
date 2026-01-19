@@ -16,7 +16,7 @@ void loadWorld() {
       FBox b = new FBox(gridSize, gridSize);
 
       //grass
-      if (c == black && n != black && w == black && e == black && n != grey && n != blue) {
+      if (c == grassColour && n != grassColour && w == grassColour && e == grassColour && n != WallColour && n != iceColour) {
         b.setStatic(true);
         b.setFillColor(c);
         b.setName("dirt");
@@ -25,63 +25,63 @@ void loadWorld() {
 
         b.setPosition(x * gridSize + gridSize / 2, y * gridSize + gridSize / 2);
         world.add(b);
-      } else if (c == black && s == black && w == black && e == black) {
+      } else if (c == grassColour && s == grassColour && w == grassColour && e == grassColour) {
         b.setPosition(x * gridSize + gridSize / 2, y * gridSize + gridSize / 2);
         b.setStatic(true);
         b.setName("dirt");
         b.attachImage(dirt);
 
         world.add(b);
-      } else if (c == black && n != black && w != grey && s == black && e == black) {
+      } else if (c == grassColour && n != grassColour && w != WallColour && s == grassColour && e == grassColour) {
         b.setPosition(x * gridSize + gridSize / 2, y * gridSize + gridSize / 2);
         b.setStatic(true);
         b.setName("dirt");
         b.attachImage(grassTopLeft);
 
         world.add(b);
-      } else if (c == black && w != black && n == black && s == black) {
+      } else if (c == grassColour && w != grassColour && n == grassColour && s == grassColour) {
         b.setPosition(x * gridSize + gridSize / 2, y * gridSize + gridSize / 2);
         b.setStatic(true);
         b.setName("dirt");
         b.attachImage(grassLeft);
 
         world.add(b);
-      } else if (c == black && s != black && w == black && e == black) {
+      } else if (c == grassColour && s != grassColour && w == grassColour && e == grassColour) {
         b.setPosition(x * gridSize + gridSize / 2, y * gridSize + gridSize / 2);
         b.setStatic(true);
         b.setName("dirt");
         b.attachImage(grassBottom);
 
         world.add(b);
-      } else if (c == black && n == black && s != black && w != black && e == black) {
+      } else if (c == grassColour && n == grassColour && s != grassColour && w != grassColour && e == grassColour) {
         b.setPosition(x * gridSize + gridSize / 2, y * gridSize + gridSize / 2);
         b.setStatic(true);
         b.setName("dirt");
         b.attachImage(grassBottomLeft);
 
         world.add(b);
-      } else if (c == black && n != black && s == black && w == black && e != grey) {
+      } else if (c == grassColour && n != grassColour && s == grassColour && w == grassColour && e != WallColour) {
         b.setPosition(x * gridSize + gridSize / 2, y * gridSize + gridSize / 2);
         b.setStatic(true);
         b.setName("dirt");
         b.attachImage(grassTopRight);
 
         world.add(b);
-      } else if (c == black && n == black && s == black && w == black && e != black) {
+      } else if (c == grassColour && n == grassColour && s == grassColour && w == grassColour && e != grassColour) {
         b.setPosition(x * gridSize + gridSize / 2, y * gridSize + gridSize / 2);
         b.setStatic(true);
         b.setName("dirt");
         b.attachImage(grassRight);
 
         world.add(b);
-      } else if (c == black && n == black && s != black && w == black && e != black) {
+      } else if (c == grassColour && n == grassColour && s != grassColour && w == grassColour && e != grassColour) {
         b.setPosition(x * gridSize + gridSize / 2, y * gridSize + gridSize / 2);
         b.setStatic(true);
         b.setName("dirt");
         b.attachImage(grassBottomRight);
 
         world.add(b);
-      } else if (c == black && n != black && w == grey) {
+      } else if (c == grassColour && n != grassColour && w == WallColour) {
         b.setStatic(true);
         b.setFillColor(c);
         b.setName("dirt");
@@ -90,7 +90,7 @@ void loadWorld() {
 
         b.setPosition(x * gridSize + gridSize / 2, y * gridSize + gridSize / 2);
         world.add(b);
-      } else if (c == black && n != black && e == grey) {
+      } else if (c == grassColour && n != grassColour && e == WallColour) {
         b.setStatic(true);
         b.setFillColor(c);
         b.setName("dirt");
@@ -99,7 +99,7 @@ void loadWorld() {
 
         b.setPosition(x * gridSize + gridSize / 2, y * gridSize + gridSize / 2);
         world.add(b);
-      } else if (c == black && n != black && s != black && w != black && e != black) {
+      } else if (c == grassColour && n != grassColour && s != grassColour && w != grassColour && e != grassColour) {
         b.setStatic(true);
         b.setFillColor(c);
         b.setName("dirt");
@@ -108,10 +108,10 @@ void loadWorld() {
 
         b.setPosition(x * gridSize + gridSize / 2, y * gridSize + gridSize / 2);
         world.add(b);
-      } 
-      
+      }
+
       //dirt only for the ice block
-      else if (c == black && n == blue && s == black) {
+      else if (c == grassColour && n == iceColour && s == grassColour) {
         b.setStatic(true);
         b.setFillColor(c);
         b.setName("dirt");
@@ -121,32 +121,32 @@ void loadWorld() {
         b.setPosition(x * gridSize + gridSize / 2, y * gridSize + gridSize / 2);
         world.add(b);
       }
-      
-      
+
+
       //bouncing walls (left)
-      if (c == grey && w == black && e != black) {
+      if (c == WallColour && w == grassColour && e != grassColour) {
         b.setPosition(x * gridSize + gridSize / 2, y * gridSize + gridSize / 2);
         b.setStatic(true);
         b.setName("wall");
         b.attachImage(grassTopRight);
-        
+
         world.add(b);
       }
-      
+
       //(right)
-      else if (c == grey && w != black && e == black) {
+      else if (c == WallColour && w != grassColour && e == grassColour) {
         b.setPosition(x * gridSize + gridSize / 2, y * gridSize + gridSize / 2);
         b.setStatic(true);
         b.setName("wall");
         b.attachImage(grassTopLeft);
-        
+
         world.add(b);
       }
-      
+
       //lava blocks
       if (c == lavaColor) {
         FLava la = new FLava(x * gridSize + gridSize / 2, y * gridSize + gridSize / 2);
-        
+
         //accessing arraylist
         terrain.add(la);
         world.add(la);
@@ -155,7 +155,7 @@ void loadWorld() {
 
 
       //ice blocks
-      if (c == blue) {
+      if (c == iceColour) {
         b.setStatic(true);
         b.setNoStroke();
         b.setFillColor(c);
@@ -171,7 +171,7 @@ void loadWorld() {
 
 
       //leafs
-      if (c == green && s == brown) { //intersection
+      if (c == treeColour && s == trunkColour) { //intersection
         b.setStatic(true);
         b.setNoStroke();
         b.setSensor(true);
@@ -181,21 +181,21 @@ void loadWorld() {
 
         b.setPosition(x * gridSize + gridSize / 2, y * gridSize + gridSize / 2);
         world.add(b);
-      } else if (c == green && w == green && e == green) { //middle piece
+      } else if (c == treeColour && w == treeColour && e == treeColour) { //middle piece
         b.setPosition(x * gridSize + gridSize / 2, y * gridSize + gridSize / 2);
         b.setStatic(true);
         b.setSensor(true);
         b.attachImage(leaf);
         b.setName("leaf");
         world.add(b);
-      } else if (c == green && w != green) { //left end
+      } else if (c == treeColour && w != treeColour) { //left end
         b.setPosition(x * gridSize + gridSize / 2, y * gridSize + gridSize / 2);
         b.setStatic(true);
         b.setSensor(true);
         b.attachImage(leafLeft);
         b.setName("leaf");
         world.add(b);
-      } else if (c == green && e != green) { //right end
+      } else if (c == treeColour && e != treeColour) { //right end
         b.setPosition(x * gridSize + gridSize / 2, y * gridSize + gridSize / 2);
         b.setStatic(true);
         b.setSensor(true);
@@ -205,7 +205,7 @@ void loadWorld() {
       }
 
       //tree trunk
-      if (c == brown) {
+      if (c == trunkColour) {
         b.setStatic(true);
         b.setNoStroke();
         b.setSensor(true);
@@ -218,7 +218,7 @@ void loadWorld() {
       }
 
       //spikes
-      if (c == darkBlue) {
+      if (c == spikeColour) {
         b.setStatic(true);
         b.setNoStroke();
         b.setFillColor(c);
@@ -230,7 +230,7 @@ void loadWorld() {
       }
 
       //slime
-      if (c == slime) {
+      if (c == slimeColour) {
         b.setStatic(true);
         b.setNoStroke();
         b.setFillColor(c);
@@ -242,34 +242,53 @@ void loadWorld() {
         b.setPosition(x * gridSize + gridSize / 2, y * gridSize + gridSize / 2);
         world.add(b);
       }
-      
+
       //bridge
-      if (c == cyan && w == black && e == cyan) {
+      if (c == bridgeColour && w == grassColour && e == bridgeColour) {
         FBridge br = new FBridge(x * gridSize + gridSize / 2, y * gridSize + gridSize / 2, bridge);
         terrain.add(br);
         world.add(br);
-      } else if (c == cyan && w == cyan && e == black) {
+      } else if (c == bridgeColour && w == bridgeColour && e == grassColour) {
         FBridge br = new FBridge(x * gridSize + gridSize / 2, y * gridSize + gridSize / 2, bridge);
         terrain.add(br);
         world.add(br);
-      } else if (c == cyan) {
+      } else if (c == bridgeColour) {
         FBridge br = new FBridge(x * gridSize + gridSize / 2, y * gridSize + gridSize / 2, bridge);
         terrain.add(br);
         world.add(br);
       }
+
+      //door
+      if (c == doorColour) {
+        FBox dr = new FBox(gridSize, gridSize * 2);
+        dr.setPosition(x * gridSize + gridSize / 2, y * gridSize + gridSize);
+        dr.setStatic(true);
+        dr.setSensor(true);
+        dr.setName("door");
+        dr.attachImage(levelDoor);
+
+        world.add(dr);
+      }
       
+      //coin
+      if (c == coinColour) {
+        FCoin cn = new FCoin(x * gridSize + gridSize / 2, y * gridSize + gridSize / 2);
+        world.add(cn);
+        terrain.add(cn);
+      }
+
       //goomba
-      if (c == yellow) {
+      if (c == goombaColour) {
         FGoomba gmb = new FGoomba(x * gridSize + gridSize / 2, y * gridSize + gridSize / 2);
-        
+
         enemies.add(gmb);
         world.add(gmb);
       }
-      
+
       //Thwomp
       if (c == thwomp) {
         FThwomp twp = new FThwomp(x * gridSize + (gridSize * 2) / 2, y * gridSize + (gridSize * 2) / 2);
-        
+
         enemies.add(twp);
         world.add(twp);
       }
