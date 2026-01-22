@@ -282,8 +282,6 @@ void createWorld() {
 
 void draw() {
   background(255);
-  
-  
   //mode
   if (modeFramework == intro) {
     introScreen();
