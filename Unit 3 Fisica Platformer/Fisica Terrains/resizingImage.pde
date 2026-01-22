@@ -5,7 +5,22 @@ void resizeImages() {
   backgroundImageBlur.resize(width + 215, height);
   backgroundImageFront.resize(width + 215, height);
   
+  //prop
+  vase.resize(gridSize, gridSize);
+  grassProp.resize(gridSize, gridSize);
+  flower.resize(gridSize, gridSize);
+  arrow.resize(gridSize * 2, gridSize * 2);
+  
+  //ice
   ice.resize(gridSize, gridSize);
+  
+  //button
+  for (int i = 0; i < button.length; i++) {
+    button[i].resize(gridSize * 2, gridSize / 2 - 5);
+  }
+  
+  //stone
+  stone.resize(gridSize + gridSize / 2, gridSize + gridSize / 2);
 
   //tree and leafs
   treeTrunk.resize(gridSize, gridSize);
@@ -32,7 +47,7 @@ void resizeImages() {
   cornerBottomLeft.resize(gridSize, gridSize);
 
   //spike
-  spike.resize(gridSize, gridSize - 20);
+  spike.resize(gridSize, gridSize);
 
   //slime
   Slime.resize(gridSize, gridSize);
@@ -48,6 +63,11 @@ void resizeImages() {
   //coin
   for (int i = 0; i < coin.length; i++) {
     coin[i].resize(gridSize / 2 + 5, gridSize / 2 + 5);
+  }
+  
+  //coin pick up
+  for (int i = 0; i < coinPickUp.length; i++) {
+    coinPickUp[i].resize(gridSize / 2 + 15, gridSize / 2 + 15);
   }
 
   //character animations
@@ -96,4 +116,30 @@ void resizeImages() {
 
   //weapon
   Hammer.resize(gridSize + 20, gridSize + 20);
+  
+  
+  //wooden trap
+  for (int i = 0; i < woodenTrap.length; i++) {
+    woodenTrap[i].resize(gridSize * 7, gridSize * 6);
+  }
+  
+  //torch
+  for (int i = 0; i < torch.length; i++) {
+    torch[i].resize(gridSize, gridSize * 2);
+  }
+  
+  //spikes trap
+  for (int i = 1; i < spikesTrap.length; i++) {
+    spikesTrap[0].resize(gridSize, gridSize);
+    spikesTrap[i].resize(gridSize, gridSize);
+  }
+  
+  //strange door
+  for (int i = 0; i < strangeDoor.length; i++) {
+    strangeDoor[i].resize(gridSize * 2, gridSize * 6);
+  }
+  
+  for (int i = 0; i < strangeDoorOpening.length; i++) {
+    strangeDoorOpening[i].resize(gridSize * 2, gridSize * 6);
+  }
 }

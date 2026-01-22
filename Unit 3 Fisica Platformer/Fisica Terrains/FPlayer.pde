@@ -52,7 +52,8 @@ class FPlayer extends FGameObject {
     //borders
     blockBorders();
   }
-
+  
+  //prevents player going outside the world
   void blockBorders() {
     //left side of player
     if (getX() < gridSize / 2) {
@@ -66,7 +67,8 @@ class FPlayer extends FGameObject {
       setPosition(width + gridSize * 6 + 5, getY());
     }
   }
-
+  
+  //animation
   void animate() {
     if (frame >= action.length) frame = 0;
     if (frameCount % 7 == 0) {
@@ -75,7 +77,8 @@ class FPlayer extends FGameObject {
       frame++;
     }
   }
-
+  
+  //movements
   void playerMovement() {
     //input variables
     movePlayer(aKey, dKey, wKey);

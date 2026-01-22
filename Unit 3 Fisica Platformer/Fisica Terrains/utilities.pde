@@ -26,13 +26,20 @@ void keyReleased() {
   if (key == ' ')    spaceKey = false;
 }
 
+//button
+void mousePressed() {
+    if (mouseX > resetButtonX && mouseX < resetButtonX + resetButtonWidth && mouseY > resetButtonY && mouseY < resetButtonY + resetButtonHeight) {
+      loadLevel();
+  }
+}
+
 PImage reverseImage(PImage image) {
   //varaibles
   PImage reverse;
-  
+
   //instantiate
   reverse = createImage(image.width, image.height, ARGB);
-  
+
   //loop
   for ( int i = 0; i < image.width; i++ ) {
     for ( int j = 0; j < image.height; j++ ) {
